@@ -13,61 +13,61 @@ class ComposerStaticInitdbd40ba981f3238a715feb54d59e10e8
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'Whoops\\' => 7,
         ),
-        'V' => 
+        'V' =>
         array (
             'Valitron\\' => 9,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'PHPFramework\\' => 13,
         ),
-        'A' => 
+        'A' =>
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Valitron\\' => 
+        'Valitron\\' =>
         array (
             0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Component\\VarDumper\\' => 
+        'Symfony\\Component\\VarDumper\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'PHPFramework\\' => 
+        'PHPFramework\\' =>
         array (
             0 => __DIR__ . '/../..' . '/core',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

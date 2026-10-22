@@ -34,7 +34,7 @@ function abort($error = '', $code = 404)
     die;
 }
 
-function baseUrl($path = ''): string
+function basePath($path = ''): string
 {
     return PATH . $path;
 }

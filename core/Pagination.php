@@ -45,7 +45,7 @@ class Pagination
     {
         $url = request()->uri;
         $url = parse_url($url);
-        $uri = str_replace('MVC/', '', $url['path']);
+        $uri = str_replace('/', '', $url['path']);
         if(!empty($url['query']) && $url['query'] != '&')
         {   
             parse_str($url['query'], $params);

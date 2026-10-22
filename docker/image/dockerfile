@@ -1,0 +1,14 @@
+FROM php:8.4-fpm
+
+RUN apt-get update && apt-get install -y git unzip zip nano && pecl install xdebug
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+COPY ./ /var/www
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN chown -R 777 /var/www/tmp/
+
+WORKDIR /var/www
+
+RUN export XDEBUG_MODE=coverage
+RUN docker-php-ext-enable xdebug

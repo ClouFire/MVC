@@ -1,6 +1,7 @@
 <?php
 
 define("ROOT", dirname(__DIR__));
+define("URL", $_SERVER['HTTP_HOST'] . '/');
 
 const DEBUG = 1;
 const CONFIG = ROOT . '/config';
@@ -9,14 +10,14 @@ const APP = ROOT . '/app';
 const CORE = ROOT . '/core';
 const VIEWS = APP . '/Views';
 const LAYOUT = 'default';
-const PATH = '/MVC';
+const PATH = '/';
 const ERROR_LOGS = ROOT . '/tmp/error.log';
 const WWW = ROOT . '/public';
 
 const DB_SETTINGS = [
-    "name" => "framework",
-    "host" => "localhost",
-    "pass" => "",
+    "name" => "my_database",
+    "host" => "mysql_db",
+    "pass" => "rootpassword",
     "login" => "root",
     "options" => [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

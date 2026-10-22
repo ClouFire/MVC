@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="<?= baseUrl('/register') ?>" method="post">
+            <form action="/register" method="post">
 
                 <?= getCsrfField(); ?>
 

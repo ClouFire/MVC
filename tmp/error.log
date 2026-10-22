@@ -18,3 +18,30 @@ Line: 40
 File: /opt/lampp/htdocs/api_project/app/Views/user/register.php
 Line: 40
 ++++++++++++++++++++++++++++
+[2026-10-22 10:55:50] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 10:56:08] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 10:56:27] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 10:59:20] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 10:59:21] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 11:01:01] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 11:02:28] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 11:02:30] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 11:04:53] DB connetion error: SQLSTATE[HY000] [2002] No such file or directory
+[2026-10-22 11:08:52] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 11:11:16] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 11:27:44] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 11:31:14] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 11:31:16] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 11:31:18] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:05] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:05] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:10] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:11] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:13] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:14] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:15] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:16] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:17] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:18] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:19] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-22 14:17:20] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
