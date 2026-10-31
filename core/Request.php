@@ -26,13 +26,23 @@ class Request
 
     protected function removeQueryString(): string
     {
-        if($this->uri)
-        {
-            $params = explode('?', $this->uri);
-            $params[0] = str_replace(str_replace('/', '' , PATH) . '/', '', $params[0]);
-            return trim($params[0], '/');
+        if (!$this->uri) {
+            return '';
         }
-        return "";
+
+        $path = explode('?', $this->uri, 2)[0];
+        $path = trim($path, '/');
+        $basePath = trim(\PHPFramework\Config::$path, '/');
+
+        if ($basePath !== '') {
+            $path = preg_replace(
+                '#^' . preg_quote($basePath, '#') . '/?#',
+                '',
+                $path
+            );
+        }
+
+        return trim($path, '/');
     }
 
     public function isGet(): bool

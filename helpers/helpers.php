@@ -36,7 +36,7 @@ function abort($error = '', $code = 404)
 
 function basePath($path = ''): string
 {
-    return PATH . $path;
+    return \PHPFramework\Config::$path . $path;
 }
 
 function db(): \PHPFramework\Database
@@ -73,7 +73,7 @@ function get_errors($field): string
         $output .= '<div class="invalid-feedback d-block"><ul class="list-unstyled">';
         foreach($errors[$field] as $error)
         {
-            $output .= "<li>$error</li>";
+            $output .= '<li>' . h($error) . '</li>';
         }
         $output .= '</ul></div>';
     }
@@ -105,7 +105,10 @@ function getCsrfField(): string
 
 function isAuth(): bool
 {
-    return false;
+    return session()->has('user') && is_array(session()->get('user')) && isset(session()->get('user')['id']);
 }
 
-
+function auth(): ?array
+{
+    return isAuth() ? session()->get('user') : null;
+}

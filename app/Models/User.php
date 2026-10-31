@@ -7,7 +7,8 @@ use PHPFramework\Model;
 class User extends Model
 {
     protected string $table = 'users';
-    protected bool $timestamps = true;
+    // The users table currently has created_at but no updated_at column.
+    protected bool $timestamps = false;
     protected array $loaded = ['name', 'email', 'password', 'confirmPassword',];
 
     protected array $fillable = ['name', 'email', 'password',];
@@ -25,4 +26,3 @@ class User extends Model
     ],
     ];
 }
-

@@ -14,14 +14,14 @@ class Database
     {
         try{
             $this->connection = new \PDO(
-                "mysql:host=" . DB_SETTINGS["host"] . ";dbname=" . DB_SETTINGS["name"] . ";charset=utf8",
-                DB_SETTINGS["login"],
-                DB_SETTINGS["pass"],
-                DB_SETTINGS["options"],
+                \PHPFramework\Config::$dbSettings["dsn"],
+                \PHPFramework\Config::$dbSettings["login"],
+                \PHPFramework\Config::$dbSettings["pass"],
+                \PHPFramework\Config::$dbSettings["options"],
                 );
         }
         catch (\PDOException $e){
-            error_log("[" . date("Y-m-d H:i:s") . "] DB connetion error: {$e->getMessage()}" . PHP_EOL, 3, ERROR_LOGS);
+            error_log("[" . date("Y-m-d H:i:s") . "] DB connetion error: {$e->getMessage()}" . PHP_EOL, 3, \PHPFramework\Config::$errorLogs);
             abort('DB connection error', 500);
         }
         
@@ -145,6 +145,37 @@ class Database
     public function deleteCache($key)
     {
         $this->execute("DELETE FROM cache WHERE `cache_key` = '{$key}'");
+    }
+
+    public function clearCache(): void
+    {
+        $this->execute('DELETE FROM cache');
+    }
+
+    public function logTestAction(?int $userId, string $action, array $details = []): void
+    {
+        $this->execute(
+            'INSERT INTO test_action_logs (user_id, action, details, ip_address, user_agent) VALUES (?, ?, ?, ?, ?)',
+            [
+                $userId,
+                $action,
+                json_encode($details, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+                $_SERVER['REMOTE_ADDR'] ?? null,
+                isset($_SERVER['HTTP_USER_AGENT']) ? substr($_SERVER['HTTP_USER_AGENT'], 0, 512) : null,
+            ]
+        );
+    }
+
+    public function getTestActionLog(int $limit = 100): array
+    {
+        $limit = max(1, min($limit, 500));
+        return $this->execute(
+            "SELECT logs.*, users.name AS user_name, users.email AS user_email
+             FROM test_action_logs AS logs
+             LEFT JOIN users ON users.id = logs.user_id
+             ORDER BY logs.created_at DESC, logs.id DESC
+             LIMIT {$limit}"
+        )->get();
     }
 
     public function insert(string $table, array $keys = ['id',], array $values = ['null',]): bool|string

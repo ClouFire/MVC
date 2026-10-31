@@ -14,11 +14,14 @@ class Response
     {
         if($url) 
         {
-            $redirect = PATH . $url;       
+            $redirect = rtrim(\PHPFramework\Config::$path, '/') . '/' . ltrim($url, '/');
+            if ($redirect === '') {
+                $redirect = '/';
+            }
         }
         else
         {
-            $redirect = $_SERVER['HTTP_REFERER'] ?? PATH;
+            $redirect = $_SERVER['HTTP_REFERER'] ?? \PHPFramework\Config::$path;
         }
         header("Location: $redirect");
         die();

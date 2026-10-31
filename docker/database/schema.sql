@@ -67,5 +67,23 @@ CREATE TABLE cache (
     INDEX idx_cache_expires_at (expires_at)
 );
 
+CREATE TABLE test_action_logs (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NULL,
+    action VARCHAR(100) NOT NULL,
+    details JSON NULL,
+    ip_address VARCHAR(45) NULL,
+    user_agent VARCHAR(512) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_test_action_logs_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE SET NULL,
+
+    INDEX idx_test_action_logs_created_at (created_at),
+    INDEX idx_test_action_logs_user_id (user_id)
+);
+
 CREATE INDEX idx_orders_user_id ON orders(user_id);
 CREATE INDEX idx_order_items_order_id ON order_items(order_id);

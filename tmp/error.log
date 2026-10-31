@@ -45,3 +45,5 @@ Line: 40
 [2026-10-22 14:17:18] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
 [2026-10-22 14:17:19] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
 [2026-10-22 14:17:20] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-29 12:39:46] DB connetion error: SQLSTATE[HY000] [2002] Connection refused
+[2026-10-29 12:39:46] DB connetion error: SQLSTATE[HY000] [2002] Connection refused

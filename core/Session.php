@@ -15,6 +15,11 @@ class Session
         $_SESSION[$key] = $value;
     }
 
+    public function regenerate(): void
+    {
+        session_regenerate_id(true);
+    }
+
     public function get($key, $default = null)
     {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;

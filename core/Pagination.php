@@ -8,15 +8,25 @@ class Pagination
     protected int $countPages;
     protected int $currentPage;
     protected string $uri;
+    protected int $totalRecords;
+    protected int $perPage;
+    protected int $midSize;
+    protected int $maxPages;
+    protected string $tpl;
 
     public function __construct(
-        protected int $totalRecords = 1,
-        protected int $perPage = PAGINATION_SETTINGS['perPage'],
-        protected int $midSize = PAGINATION_SETTINGS['midSize '],
-        protected int $maxPages = PAGINATION_SETTINGS['maxPages'],
-        protected string $tpl = PAGINATION_SETTINGS['tpl'],
+        int $totalRecords = 1,
+        ?int $perPage = null,
+        ?int $midSize = null,
+        ?int $maxPages = null,
+        ?string $tpl = null,
         )
     {
+        $this->totalRecords = $totalRecords;
+        $this->perPage = $perPage ?? \PHPFramework\Config::$paginationSettings['perPage'];
+        $this->midSize = $midSize ?? \PHPFramework\Config::$paginationSettings['midSize'];
+        $this->maxPages = $maxPages ?? \PHPFramework\Config::$paginationSettings['maxPages'];
+        $this->tpl = $tpl ?? \PHPFramework\Config::$paginationSettings['tpl'];
         $this->countPages = $this->getCountPages();
         $this->currentPage = $this->getCurrentPage();
         $this->uri = $this->getParams();

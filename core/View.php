@@ -16,7 +16,7 @@ class View
     public function render(string $view, array $data = [], $layout = ''): string
     {
         extract($data);
-        $view_file = VIEWS . "/{$view}.php";
+        $view_file = Config::$views . "/{$view}.php";
         if (file_exists($view_file)) 
         {
             ob_start(); 
@@ -34,7 +34,7 @@ class View
         }
 
         $layout_file = $layout ?: $this->layout;
-        $layout_file = VIEWS . "/layouts/{$layout_file}.php";
+        $layout_file = Config::$views . "/layouts/{$layout_file}.php";
         if(file_exists($layout_file))
         {
             ob_start();
@@ -50,7 +50,7 @@ class View
     public function renderPartial($view, $data = []): string
     {
         extract($data);
-        $view_file = VIEWS . "/{$view}.php";
+        $view_file = Config::$views . "/{$view}.php";
         if (file_exists($view_file)) 
         {
             ob_start(); 

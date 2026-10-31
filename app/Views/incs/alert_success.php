@@ -1,6 +1,3 @@
-<div class="container">
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <?= $flash_success ?? '';?>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+<div class="app-notification alert alert-success fade show" role="alert" data-auto-dismiss="3000">
+  <?= h($flash_success ?? '');?>
 </div>

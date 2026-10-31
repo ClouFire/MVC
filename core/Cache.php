@@ -34,4 +34,9 @@ class Cache
         $cache_key = md5($key);
         if(db()->findOne('cache', $cache_key, 'cache_key')) db()->deleteCache($cache_key);
     }
+
+    public function clear(): void
+    {
+        db()->clearCache();
+    }
 }

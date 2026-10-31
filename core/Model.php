@@ -71,7 +71,7 @@ abstract class Model
         {
             $rules = $this->rules;
         }
-        Validator::langDir(WWW . '/lang');
+        Validator::langDir(\PHPFramework\Config::$www . '/lang');
         Validator::lang('en');
         $validator = new Validator($data);
         $validator->rules($rules);
