@@ -84,6 +84,8 @@ class TestLabController extends BaseController {
                 'affected_rows' => null,
                 'error' => 'The SQL console is disabled by the environment configuration.',
             ]);
+
+            return;
         }
 
         $sql = trim((string) request()->post('sql'));
@@ -96,6 +98,8 @@ class TestLabController extends BaseController {
                 'affected_rows' => null,
                 'error' => 'Enter an SQL statement before executing it.',
             ]);
+
+            return;
         }
 
         $startedAt = microtime(true);

@@ -24,6 +24,11 @@ class Pagination {
         $this->midSize = $midSize ?? Config::$paginationSettings['midSize'];
         $this->maxPages = $maxPages ?? Config::$paginationSettings['maxPages'];
         $this->template = $template ?? Config::$paginationSettings['tpl'];
+
+        if ($this->perPage < 1 || $this->midSize < 0 || $this->maxPages < 1 || $totalRecords < 0) {
+            throw new \InvalidArgumentException('Invalid pagination settings.');
+        }
+
         $this->countPages = $this->getCountPages();
         $this->currentPage = $this->getCurrentPage();
         $this->uri = $this->getParams();
@@ -46,7 +51,7 @@ class Pagination {
 
     protected function getParams(): string {
         $url = parse_url(request()->uri);
-        $uri = str_replace('/', '', $url['path']);
+        $uri = '/' . ltrim($url['path'], '/');
 
         if (!empty($url['query']) && $url['query'] !== '&') {
             parse_str($url['query'], $params);

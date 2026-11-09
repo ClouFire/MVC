@@ -38,4 +38,4 @@ Data changes and the migration history entry run in one transaction. Some databa
 
 ## Verification
 
-Run [tests/migrations.php](tests/migrations.php) against an empty disposable MySQL database with `TEST_DB_DSN`, `TEST_DB_USERNAME`, and `TEST_DB_PASSWORD` set. The test refuses databases containing tables. It checks invalid credentials, existing accounts, password hashing, repeated runs, and transactional rollback.
+Run `vendor/bin/phpunit tests/MigrationsTest.php` with `TEST_DB_DSN`, `TEST_DB_USERNAME`, and `TEST_DB_PASSWORD` pointing to a disposable MySQL server. PHPUnit creates and removes a dedicated database for the test. The cases cover credential validation, account collisions, password hashing, repeat execution, and rollback. See [TESTING.md](TESTING.md) for the full suite and CLI tests.

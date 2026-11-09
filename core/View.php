@@ -32,7 +32,7 @@ class View {
 
         if (file_exists($layoutFile)) {
             ob_start();
-            require_once $layoutFile;
+            require $layoutFile;
 
             return ob_get_clean();
         } else {

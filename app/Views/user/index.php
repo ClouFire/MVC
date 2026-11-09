@@ -1,7 +1,7 @@
 <div class="container">
 
     <?php foreach($users as $user): ?>
-        <?= $user['name']; ?><br>
+        <?= h($user['name']); ?><br>
     <?php endforeach; ?>
 
     <?= $pagination; ?>

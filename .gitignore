@@ -1,2 +1,4 @@
 /vendor
 .env
+tests/.coverage/
+tests/.phpunit.result.cache

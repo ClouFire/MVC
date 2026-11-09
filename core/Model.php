@@ -56,6 +56,8 @@ abstract class Model {
     }
 
     public function validate($data = [], $rules = []) {
+        $this->errors = [];
+
         if (!$data) {
             $data = $this->attrs;
         }

@@ -26,7 +26,8 @@ class Database {
         }
     }
 
-    protected function __clone() {
+    public function __clone() {
+        throw new \BadMethodCallException('Unable to clone database connection');
     }
 
     public function __wakeup() {
@@ -171,19 +172,20 @@ class Database {
         )->get();
     }
 
-    public function insert(string $table, array $keys = ['id'], array $values = ['null']): bool|string {
+    public function insert(string $table, array $keys = ['id'], array $values = [null]): bool|string {
+        if ($keys === [] || count($keys) !== count($values)) {
+            throw new \InvalidArgumentException('Insert columns and values must have matching non-empty lengths.');
+        }
+
         foreach ($keys as $index => $value) {
             $keys[$index] = "`{$value}`";
         }
 
         $keys = implode(',', $keys);
 
-        foreach ($values as $index => $value) {
-            $values[$index] = ":{$value}";
-        }
+        $placeholders = implode(', ', array_fill(0, count($values), '?'));
 
-        $values = implode(', ', $values);
-        $this->execute("INSERT INTO {$table} ({$keys}) VALUES ({$values})");
+        $this->execute("INSERT INTO {$table} ({$keys}) VALUES ({$placeholders})", array_values($values));
 
         return $this->getInsertId();
     }

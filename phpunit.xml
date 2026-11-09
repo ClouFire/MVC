@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         processIsolation="true"
+         backupGlobals="false"
+         failOnWarning="true"
+         failOnRisky="true"
+         convertDeprecationsToExceptions="true"
+         cacheResultFile="tests/.phpunit.result.cache">
+    <testsuites>
+        <testsuite name="unit">
+            <file>tests/ConfigTest.php</file>
+            <file>tests/CoreTest.php</file>
+            <file>tests/RoutingCacheTest.php</file>
+            <file>tests/RenderingTest.php</file>
+            <file>tests/CoverageGateTest.php</file>
+        </testsuite>
+        <testsuite name="integration">
+            <file>tests/CacheDatabaseTest.php</file>
+            <file>tests/MigrationsTest.php</file>
+            <file>tests/MigrationFilesystemTest.php</file>
+            <file>tests/DatabaseApplicationTest.php</file>
+            <file>tests/HttpTest.php</file>
+            <file>tests/CliTest.php</file>
+        </testsuite>
+    </testsuites>
+    <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+        <include>
+            <directory suffix=".php">core</directory>
+            <directory suffix=".php">app</directory>
+            <directory suffix=".php">helpers</directory>
+            <directory suffix=".php">database</directory>
+        </include>
+    </coverage>
+</phpunit>

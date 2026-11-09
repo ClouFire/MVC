@@ -12,9 +12,6 @@ class Response {
         if ($url) {
             $redirect = rtrim(\PHPFramework\Config::$path, '/') . '/' . ltrim($url, '/');
 
-            if ($redirect === '') {
-                $redirect = '/';
-            }
         } else {
             $redirect = $_SERVER['HTTP_REFERER'] ?? \PHPFramework\Config::$path;
         }
