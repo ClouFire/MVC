@@ -2,13 +2,10 @@
 
 namespace PHPFramework\Middleware;
 
-class Auth
-{
+class Auth {
 
-    public function handle(): void
-    {
-        if(!isAuth())
-        {
+    public function handle(): void {
+        if (!isAuth()) {
             session()->setFlash('error', 'Forbidden access');
             response()->redirect('/login');
         }

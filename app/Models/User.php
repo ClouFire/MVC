@@ -4,10 +4,8 @@ namespace App\Models;
 
 use PHPFramework\Model;
 
-class User extends Model
-{
+class User extends Model {
     protected string $table = 'users';
-    // The users table currently has created_at but no updated_at column.
     protected bool $timestamps = false;
     protected array $loaded = ['name', 'email', 'password', 'confirmPassword',];
 

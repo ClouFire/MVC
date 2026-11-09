@@ -1,11 +1,8 @@
 <?php
 
-/** @var /PHPFramework/Application $app */
-
 use App\Controllers\HomeController;
 use App\Controllers\TestLabController;
 use App\Controllers\UserController;
-use App\Models\User;
 
 const MIDDLEWARE = [
     'auth' => \PHPFramework\Middleware\Auth::class,
@@ -21,11 +18,6 @@ $app->router->get('dashboard', [HomeController::class, 'dashboard'])->middleware
 $app->router->post('logout', [UserController::class, 'logout']);
 $app->router->get('users', [UserController::class, 'index'])->middleware(['auth']);
 $app->router->post('dashboard/create-user', [HomeController::class, 'createUser'])->middleware(['auth']);
-// Add ->middleware(['auth']) here to restrict cache clearing to authenticated users.
 $app->router->post('test-lab/cache/clear', [TestLabController::class, 'clearCache']);
 $app->router->post('test-lab/execute-php', [TestLabController::class, 'executePhp'])->middleware(['auth']);
-
-/* $app->router->get('/post/(?P<slug>[a-z0-9-]+)/?', function() {
-    return '<p>Some post</p>';
-});
-*/
+$app->router->post('test-lab/execute-sql', [TestLabController::class, 'executeSql'])->middleware(['auth']);

@@ -2,7 +2,5 @@
 
 namespace PHPFramework;
 
-class Controller
-{
-    
+class Controller {
 }

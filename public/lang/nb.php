@@ -1,5 +1,4 @@
 <?php
-// Norwegian Bokmål (nb)
 return array(
     'required'      => "er påkrevd",
     'equals'        => "må være lik '%s'",

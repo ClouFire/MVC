@@ -1,6 +1,6 @@
 <?php
 
-return array(   
+return array(
     'required'          => "est obligatoire",
     'equals'            => "doit être identique à '%s'",
     'different'         => "doit être différent de '%s'",

@@ -2,12 +2,12 @@
 
 namespace PHPFramework;
 
-final class Config
-{
+final class Config {
     public static string $root;
     public static string $url;
     public static bool $debug;
     public static bool $testLabPhpExecutionEnabled;
+    public static bool $testLabSqlConsoleEnabled;
     public static string $config;
     public static string $helpers;
     public static string $app;
@@ -20,13 +20,13 @@ final class Config
     public static array $dbSettings;
     public static array $paginationSettings;
 
-    public static function load(string $envFile): void
-    {
+    public static function load(string $envFile): void {
         self::loadEnv($envFile);
         self::$root = dirname(__DIR__);
         self::$url = self::env('APP_URL', ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/');
         self::$debug = self::booleanEnv('APP_DEBUG', true);
         self::$testLabPhpExecutionEnabled = self::booleanEnv('TEST_LAB_PHP_EXECUTION_ENABLED', false);
+        self::$testLabSqlConsoleEnabled = self::booleanEnv('TEST_LAB_SQL_CONSOLE_ENABLED', false);
         self::$config = self::$root . '/config';
         self::$helpers = self::$root . '/helpers';
         self::$app = self::$root . '/app';
@@ -40,9 +40,11 @@ final class Config
         $databaseName = self::env('DB_DATABASE', '');
         $databaseHost = self::env('DB_HOST', '');
         $databaseDriver = strtolower(self::env('DB_DRIVER', 'mysql'));
+
         if ($databaseDsn === '') {
             $databaseDsn = self::buildDatabaseDsn($databaseDriver, $databaseHost, $databaseName);
         }
+
         self::$dbSettings = [
             'dsn' => $databaseDsn,
             'driver' => $databaseDriver,
@@ -56,6 +58,7 @@ final class Config
                 \PDO::ATTR_EMULATE_PREPARES => false,
             ],
         ];
+
         self::$paginationSettings = [
             'perPage' => self::integerEnv('PAGINATION_PER_PAGE', 2),
             'midSize' => self::integerEnv('PAGINATION_MID_SIZE', 2),
@@ -64,11 +67,11 @@ final class Config
         ];
     }
 
-    private static function buildDatabaseDsn(string $driver, string $host, string $name): string
-    {
+    private static function buildDatabaseDsn(string $driver, string $host, string $name): string {
         if ($host === '' && $driver !== 'sqlite') {
             throw new \RuntimeException('Missing required environment variable: DB_HOST');
         }
+
         if ($name === '') {
             throw new \RuntimeException('Missing required environment variable: DB_DATABASE');
         }
@@ -88,42 +91,44 @@ final class Config
         };
     }
 
-    private static function loadEnv(string $envFile): void
-    {
+    private static function loadEnv(string $envFile): void {
         if (!is_readable($envFile)) {
             throw new \RuntimeException("Environment file not found: {$envFile}");
         }
+
         foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
             $line = trim($line);
+
             if ($line === '' || str_starts_with($line, '#') || !str_contains($line, '=')) {
                 continue;
             }
+
             [$name, $value] = explode('=', $line, 2);
             $name = trim($name);
             $value = trim($value);
+
             if (($value[0] ?? '') === '"' && str_ends_with($value, '"')) {
                 $value = substr($value, 1, -1);
             } elseif (($value[0] ?? '') === "'" && str_ends_with($value, "'")) {
                 $value = substr($value, 1, -1);
             }
+
             putenv("{$name}={$value}");
             $_ENV[$name] = $value;
         }
     }
 
-    private static function env(string $name, string $default): string
-    {
+    private static function env(string $name, string $default): string {
         $value = $_ENV[$name] ?? getenv($name);
+
         return $value === false || $value === '' ? $default : (string) $value;
     }
 
-    private static function booleanEnv(string $name, bool $default): bool
-    {
+    private static function booleanEnv(string $name, bool $default): bool {
         return filter_var(self::env($name, $default ? '1' : '0'), FILTER_VALIDATE_BOOL);
     }
 
-    private static function integerEnv(string $name, int $default): int
-    {
+    private static function integerEnv(string $name, int $default): int {
         return (int) self::env($name, (string) $default);
     }
 }

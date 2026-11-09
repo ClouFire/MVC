@@ -2,10 +2,7 @@
 
 namespace PHPFramework;
 
-use function PHPSTORM_META\type;
-
-class Application
-{
+class Application {
 
     protected string $uri;
     public Request $request;
@@ -18,8 +15,7 @@ class Application
     public static Application $app;
     protected array $container;
 
-    public function __construct()
-    {
+    public function __construct() {
         self::$app = $this;
         $this->uri = $_SERVER['REQUEST_URI'];
         $this->request = new Request($this->uri);
@@ -32,27 +28,21 @@ class Application
         $this->writeCsrfToken();
     }
 
-    public function run(): void
-    {
+    public function run(): void {
         echo $this->router->dispatch();
     }
 
-    public function writeCsrfToken(): void
-    {
-        if(!session()->has('csrf_token'))
-        {
+    public function writeCsrfToken(): void {
+        if (!session()->has('csrf_token')) {
             session()->set('csrf_token', bin2hex(random_bytes(32)));
         }
     }
 
-    public function set($key, $value): void
-    {
+    public function set($key, $value): void {
         $this->container[$key] = $value;
     }
 
-    public function get($key, $default = null)
-    {
+    public function get($key, $default = null) {
         return $this->container[$key] ?? $default;
     }
-
 }

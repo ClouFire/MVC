@@ -33,5 +33,5 @@ return array(
     "instanceOf"     => "debe ser una instancia de '%s'",
     'containsUnique' => "debe contener solo valores únicos",
     'subset'         => "contiene un elemento que no está en la lista",
-    'arrayHasKeys'   => "no contiene todas las claves requeridas"    
+    'arrayHasKeys'   => "no contiene todas las claves requeridas"
 );

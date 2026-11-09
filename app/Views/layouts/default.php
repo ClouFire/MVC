@@ -26,7 +26,7 @@
     <?= view()->renderPartial('incs/test_lab'); ?>
 
     <?php get_alerts(); ?>
-    <?=$this->content;?>    
+    <?=$this->content;?>
 
 <script src="<?= basePath('assets/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script>
