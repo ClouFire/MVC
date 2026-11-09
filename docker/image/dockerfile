@@ -6,9 +6,13 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 COPY ./ /var/www
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN chown -R 777 /var/www/tmp/
+COPY docker/image/entrypoint.sh /usr/local/bin/app-entrypoint
+RUN chmod 755 /usr/local/bin/app-entrypoint
 
 WORKDIR /var/www
 
 RUN export XDEBUG_MODE=coverage
 RUN docker-php-ext-enable xdebug
+
+ENTRYPOINT ["app-entrypoint"]
+CMD ["php-fpm"]
