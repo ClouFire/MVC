@@ -20,7 +20,7 @@ class Cache {
         if ($cache) {
             $cache['data'] = unserialize($cache['data']);
 
-            if (time() <= $cache['expires_at']) {
+            if (time() < $cache['expires_at']) {
                 return $cache['data'];
             }
 

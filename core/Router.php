@@ -46,17 +46,47 @@ class Router {
     }
 
     public function dispatch() {
+        $this->routeParams = [];
         $path = $this->request->getPath();
         $route = $this->matchRoute($path);
 
         if (false === $route) {
             abort();
         } else {
-            if (is_array($route['callback'])) {
-                $route['callback'][0] = new $route['callback'][0];
+            $middlewareStack = [];
+
+            foreach ($route['middleware'] as $middleware) {
+                $middlewareClass = MIDDLEWARE[$middleware] ?? null;
+
+                if ($middlewareClass === null) {
+                    throw new \RuntimeException("Unknown middleware: {$middleware}");
+                }
+
+                $instance = new $middlewareClass();
+
+                if ($instance instanceof ResponseMiddleware) {
+                    $middlewareStack[] = $instance;
+                } else {
+                    $instance->handle();
+                }
             }
 
-            return call_user_func($route['callback']);
+            $next = function () use ($route) {
+                $callback = $route['callback'];
+
+                if (is_array($callback) && is_string($callback[0])) {
+                    $callback[0] = new $callback[0]();
+                }
+
+                return call_user_func_array($callback, array_values($this->routeParams));
+            };
+
+            foreach (array_reverse($middlewareStack) as $middleware) {
+                $handler = $next;
+                $next = fn() => $middleware->handle($handler);
+            }
+
+            return $next();
         }
     }
 
@@ -75,16 +105,6 @@ class Router {
                             die;
                         } else {
                             abort('Page expired', 419);
-                        }
-                    }
-                }
-
-                if ($route['middleware']) {
-                    foreach ($route['middleware'] as $middleware) {
-                        $middlewareClass = MIDDLEWARE[$middleware] ?? false;
-
-                        if ($middlewareClass) {
-                            (new $middlewareClass)->handle();
                         }
                     }
                 }

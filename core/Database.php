@@ -125,9 +125,16 @@ class Database {
     }
 
     public function insertCache($key, $data, $createdAt, $expiresAt): void {
+        $driver = $this->connection->getAttribute(\PDO::ATTR_DRIVER_NAME);
+        $conflict = match ($driver) {
+            'mysql' => 'ON DUPLICATE KEY UPDATE data = ?, created_at = ?, expires_at = ?',
+            'pgsql', 'sqlite' => 'ON CONFLICT (cache_key) DO UPDATE SET data = ?, created_at = ?, expires_at = ?',
+            default => throw new \RuntimeException("Cache upserts are not supported for database driver: {$driver}"),
+        };
+
         $this->execute(
-            'INSERT INTO cache (`cache_key`, `data`, `created_at`, `expires_at`) VALUES (?, ?, ?, ?)',
-            [$key, $data, $createdAt, $expiresAt]
+            "INSERT INTO cache (cache_key, data, created_at, expires_at) VALUES (?, ?, ?, ?) {$conflict}",
+            [$key, $data, $createdAt, $expiresAt, $data, $createdAt, $expiresAt]
         );
     }
 
