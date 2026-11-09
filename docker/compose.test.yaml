@@ -1,0 +1,29 @@
+services:
+  tests:
+    build:
+      context: ..
+      dockerfile: docker/image/dockerfile
+    volumes:
+      - ..:/var/www
+    tmpfs:
+      - /var/www/tmp
+    environment:
+      XDEBUG_MODE: coverage
+      TEST_DB_DSN: mysql:host=database-test;port=3306
+      TEST_DB_USERNAME: root
+      TEST_DB_PASSWORD: suite-test-only
+    command: composer test:coverage
+    depends_on:
+      database-test:
+        condition: service_healthy
+  database-test:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: suite-test-only
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: [CMD, mysql, -h, 127.0.0.1, -uroot, -psuite-test-only, -e, SELECT 1]
+      interval: 2s
+      timeout: 5s
+      retries: 60
