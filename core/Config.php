@@ -19,6 +19,7 @@ final class Config {
     public static string $www;
     public static array $dbSettings;
     public static array $paginationSettings;
+    public static array $adminCredentials;
 
     public static function load(string $envFile): void {
         self::loadEnv($envFile);
@@ -36,6 +37,12 @@ final class Config {
         self::$path = self::env('APP_PATH', '/');
         self::$errorLogs = self::$root . '/tmp/error.log';
         self::$www = self::$root . '/public';
+        self::$adminCredentials = [
+            'name' => trim(self::env('ADMIN_NAME', '')),
+            'email' => strtolower(trim(self::env('ADMIN_EMAIL', ''))),
+            'password' => self::env('ADMIN_PASSWORD', ''),
+        ];
+
         $databaseDsn = self::env('DB_DSN', '');
         $databaseName = self::env('DB_DATABASE', '');
         $databaseHost = self::env('DB_HOST', '');
